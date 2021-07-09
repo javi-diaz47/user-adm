@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+    background: red;
+    
+    img{
+        width: 300px;
+        clip-path: circle();
+    }
+    
+}

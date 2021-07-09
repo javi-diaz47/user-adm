@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, abort, send_from_directory
+from flask import Flask, jsonify, request, abort, send_from_directory, render_template
 from flask_cors.decorator import cross_origin
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
