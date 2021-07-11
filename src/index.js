@@ -1,23 +1,8 @@
+import VanillaTilt from 'vanilla-tilt';
+import { login } from './app/functions/login';
 import './style/style.scss';
 
-const url = 'http://127.0.0.1:5000'
-
-const getUsers = async () => {
- 
-    const response = await fetch(`${url}/getUsers`);
-    const users = await response.json();
-    return users;
-
-}
-
-const getUserImage = async (id) => {
-
-    const response = await fetch(`${url}/getUserImage/${id}`);
-    const bynaryLargeObject = await response.blob();
-    const domString = await URL.createObjectURL(bynaryLargeObject);
-    return domString;
-
-}
+const url = 'http://127.0.0.1:5000';
 
 async function main(){
 
@@ -29,7 +14,7 @@ async function main(){
 
     const body = document.querySelector('body');
 
-    body.innerHTML = `
+    body.innerHTML += `
 
        <img src="${img}" alt=""> 
 
@@ -37,5 +22,33 @@ async function main(){
 
 }
 
+new VanillaTilt.init(document.querySelector('#login'), {
+    max: 4,
+    speed: 2000,
+});
 
-main();
+const $title = document.querySelector('h2')
+// const $inputUsername = document.querySelector('#username-input');
+// const $inputPassword = document.querySelector('#password-input');
+const $form = document.querySelector('form');
+
+$form.addEventListener('submit', async (ev) => {
+
+    ev.preventDefault();
+    const formData = new FormData($form);
+    
+    const log = await login(url, formData);
+
+    if(log.logState === 'true'){
+        $title.textContent = 'Logged';
+    }else{
+        $title.textContent = log.logState;
+    }
+    
+
+    // $title.textContent = logState;
+
+    // debugger
+});
+
+// main();

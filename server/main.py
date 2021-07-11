@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, abort, send_from_directory, render_template
+from flask import Flask, jsonify, request, abort, send_from_directory, render_template, redirect, url_for
 from flask_cors.decorator import cross_origin
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
@@ -41,6 +41,28 @@ def getUserImage(user_id):
     except FileNotFoundError:
         abort(404)
 
+
+@app.route('/login', methods=["POST"])
+@cross_origin()
+def login():
+    for user in data:
+        if user['username'] == request.form['username']:
+            if user['password'] == request.form['password']:
+                logState = 'true'
+                
+                return redirect(url_for('logged', value="true"))
+        else:
+            continue
+
+    return redirect(url_for('logged', value="username or password are incorrects"))
+
+
+@app.route('/logged/<value>')
+@cross_origin()
+def logged(value):
+    return jsonify({"logState": value})
+
+        
 
 # @app.route('/postUser', methods='POST')
 # def postUser():
