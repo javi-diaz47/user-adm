@@ -4,11 +4,19 @@ module.exports = {
 
     entry: "./src/index.js",
 
-    plugins: [new HtmlWebpackPlugin(
-        {
+    plugins: [
+        
+        new HtmlWebpackPlugin({
+            filename: "index.html",
             template: "./src/template.html",
-        }
-    )],
+        }),
+
+        new HtmlWebpackPlugin({
+            filename: "login.html",
+            template: "./src/template.html",
+        }),
+
+    ],
 
     module: {
         rules: [

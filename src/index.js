@@ -41,6 +41,7 @@ $form.addEventListener('submit', async (ev) => {
 
     if(log.logState === 'true'){
         $title.textContent = 'Logged';
+        window.location.replace('./login.html')
     }else{
         $title.textContent = log.logState;
     }

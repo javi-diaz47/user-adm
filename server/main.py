@@ -13,6 +13,8 @@ app.config['UPLOAD_FOLDER'] = os.path.join(os.path.realpath('./'), 'images')
 def sendImage(url):
     return url
 
+# GET USERS
+
 @app.route('/getUsers')
 @cross_origin()
 def getUsers():
@@ -29,6 +31,9 @@ def getUser(user_id):
         return jsonify(data[user_id])
 
 
+
+# GET USERS IMAGES
+
 @app.route('/getUserImage/<int:user_id>')
 @cross_origin()
 def getUserImage(user_id):
@@ -42,13 +47,15 @@ def getUserImage(user_id):
         abort(404)
 
 
+
+# LOGIN
+
 @app.route('/login', methods=["POST"])
 @cross_origin()
 def login():
     for user in data:
         if user['username'] == request.form['username']:
             if user['password'] == request.form['password']:
-                logState = 'true'
                 
                 return redirect(url_for('logged', value="true"))
         else:
@@ -62,7 +69,8 @@ def login():
 def logged(value):
     return jsonify({"logState": value})
 
-        
+
+# REGISTER USER      
 
 # @app.route('/postUser', methods='POST')
 # def postUser():
